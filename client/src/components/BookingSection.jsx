@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import homeImage from "../assets/images/home.jpg";
 import BookingDetails from "./BookingDetails";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-const BookingForm = () => {
+const BookingSection = () => {
   const [bookForm, setBookForm] = useState({
     email: "",
     pickupLocation: "",
@@ -10,7 +12,7 @@ const BookingForm = () => {
     pickupTime: "",
     cabType: "",
   });
-  const [bookingData, SetBookingData] = useState({
+  const [bookingData, setBookingData] = useState({
     timeTaken: "",
     dropoffTime: "",
     message: "",
@@ -18,10 +20,10 @@ const BookingForm = () => {
     price: "",
     cabType: "",
   });
+  const [toastShown, setToastShown] = useState(false);
 
   const updateBookForm = (e) => {
     const { name, value } = e.target;
-
     setBookForm({
       ...bookForm,
       [name]: value,
@@ -42,7 +44,7 @@ const BookingForm = () => {
       const res = await response.json();
 
       if (!response.ok) {
-        await SetBookingData({
+        setBookingData({
           timeTaken: res.minTimeTaken,
           dropoffTime: res.dropOffTime,
           message: res.message,
@@ -50,9 +52,12 @@ const BookingForm = () => {
           price: res.price,
           cabType: bookForm.cabType,
         });
-        console.log(bookingData);
+        if (!toastShown) {
+          toast.error(res.message);
+          setToastShown(true);
+        }
       } else {
-        await SetBookingData({
+        setBookingData({
           timeTaken: res.minTimeTaken,
           dropoffTime: res.dropOffTime,
           message: res.message,
@@ -60,8 +65,10 @@ const BookingForm = () => {
           price: res.price,
           cabType: bookForm.cabType,
         });
-
-        console.log(bookingData);
+        if (!toastShown) {
+          toast.success("Booking Successful!");
+          setToastShown(true);
+        }
       }
     } catch (error) {
       console.log("error in booking the cab", error);
@@ -74,6 +81,8 @@ const BookingForm = () => {
         {/* Booking Form Div */}
         <div className="w-full md:w-1/2">
           <form className="max-w-md mx-auto" onSubmit={handleSubmit}>
+            {/* Form fields */}
+            {/* Email */}
             <div className="mb-6">
               <label
                 htmlFor="email"
@@ -92,6 +101,7 @@ const BookingForm = () => {
                 required
               />
             </div>
+            {/* Pickup Location */}
             <div className="mb-6">
               <label
                 htmlFor="pickup"
@@ -117,6 +127,7 @@ const BookingForm = () => {
                 <option value="4">4</option>
               </select>
             </div>
+            {/* Drop-off Location */}
             <div className="mb-6">
               <label
                 htmlFor="dropoff"
@@ -142,6 +153,7 @@ const BookingForm = () => {
                 <option value="4">4</option>
               </select>
             </div>
+            {/* Pick-up Time */}
             <div className="mb-6">
               <label
                 htmlFor="pickuptime"
@@ -159,6 +171,7 @@ const BookingForm = () => {
                 required
               />
             </div>
+            {/* Cab Type */}
             <div className="mb-6">
               <label
                 htmlFor="cabType"
@@ -184,7 +197,7 @@ const BookingForm = () => {
                 <option value="Premium">Premium</option>
               </select>
             </div>
-
+            {/* Submit Button */}
             <button
               type="submit"
               className="text-white bg-yellow-500 hover:bg-yellow-600 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-yellow-400 dark:hover:bg-yellow-500 dark:focus:ring-yellow-600 mt-4"
@@ -196,17 +209,16 @@ const BookingForm = () => {
 
         {/* Cab Types Div */}
         <div className="hidden md:block w-full md:w-1/2">
-          <img src={homeImage} />
+          <img src={homeImage} alt="Home" />
         </div>
       </section>
+
       {/* Booking Details Section */}
-     
-        <section>
-          <BookingDetails bookingData={bookingData} />
-        </section>
-    
+      <section>
+        <BookingDetails bookingData={bookingData} />
+      </section>
     </>
   );
 };
 
-export default BookingForm;
+export default BookingSection;

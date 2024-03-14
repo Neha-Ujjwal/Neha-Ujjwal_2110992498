@@ -1,11 +1,23 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import successImage from "../assets/images/success.png";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 
 const BookingDetails = ({ bookingData }) => {
-  // Render booking details if cab is booked
-  
+  const [showToast, setShowToast] = useState(false);
+
+  useEffect(() => {
+    if (bookingData.cabBooked === false) {
+      // Cab is not available, show toast
+      setShowToast(true);
+
+      // Reset toast after 5 seconds
+      const timer = setTimeout(() => {
+        setShowToast(false);
+      }, 1000);
+
+      return () => clearTimeout(timer); // Cleanup timer on unmount
+    }
+  }, [bookingData]);
 
   if (bookingData.cabBooked === "") {
     return null;
@@ -26,7 +38,6 @@ const BookingDetails = ({ bookingData }) => {
         </p>
         <div className="flex justify-center items-center h-[600px]">
           <div className="md:w-1/2 max-w-md hidden md:block">
-            {/* Hide this div on small screens */}
             <img src={successImage} alt="Success" />
           </div>
           <div className="w-full md:w-1/2 pl-[100px] mt-[-200px]">
@@ -56,10 +67,11 @@ const BookingDetails = ({ bookingData }) => {
       </>
     );
   } else {
-    // Render alternative content if cab is not booked
-    // Show toast message
-    toast.error("Cab is not available");
-    return <ToastContainer />;
+    if (showToast) {
+      // Show toast message if cab is not available
+      toast.error("Cab is not available");
+    }
+    return null;
   }
 };
 
