@@ -1,5 +1,9 @@
 const bookCab = (req, res) => {
-  return res.status(200).json({ msg: "successfull" });
+  try {
+    return res.status(200).json({ msg: "successfull" });
+  } catch (error) {
+    res.status(400).json({ err: error });
+  }
 };
 
 module.exports = bookCab;
