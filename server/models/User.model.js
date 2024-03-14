@@ -18,13 +18,12 @@ const userSchema = new mongoose.Schema({
     type: Date,
     required: true,
   },
-  endTime: {
-    type: Date,
+  cabType: {
+    type: String,
     required: true,
   },
 });
 
-const User=new mongoose.model("User",userSchema);
+const User = new mongoose.model("User", userSchema);
 
-
-module.exports=User;
+module.exports = User;

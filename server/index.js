@@ -7,15 +7,11 @@ const EditCabRouter = require("./routes/editCabRoute.js");
 const bookCabRouter = require("./routes/bookCabRouter.js");
 const connectToDB = require("./database/db.js");
 
-const validate = require("./middlewares/validateUserInput.middleware.js");
-
-const userSchema = require("./validations/validateUserInput.js");
-
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 app.use("/get-shortest-route", ShortestPathRouter);
 app.use("/edit", EditCabRouter);
-app.use("/book", validate(userSchema), bookCabRouter);
+app.use("/book", bookCabRouter);
 
 const PORT = process.env.PORT;
 
@@ -25,6 +21,7 @@ connectToDB()
       console.log(`server is running on port ${PORT}`);
     });
   })
-  .catch(() => {
+  .catch((error) => {
+    console.log(error);
     console.log("Error in running the server");
   });
