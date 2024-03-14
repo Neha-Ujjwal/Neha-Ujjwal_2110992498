@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import homeImage from "../assets/images/main4.jpg";
+import homeImage from "../assets/images/home.jpg";
 import BookingDetails from "./BookingDetails";
 
 const BookingForm = () => {
@@ -15,6 +15,8 @@ const BookingForm = () => {
     dropoffTime: "",
     message: "",
     cabBooked: "",
+    price: "",
+    cabType: "",
   });
 
   const updateBookForm = (e) => {
@@ -45,6 +47,8 @@ const BookingForm = () => {
           dropoffTime: res.dropOffTime,
           message: res.message,
           cabBooked: res.cabBooked,
+          price: res.price,
+          cabType: bookForm.cabType,
         });
         console.log(bookingData);
       } else {
@@ -53,6 +57,8 @@ const BookingForm = () => {
           dropoffTime: res.dropOffTime,
           message: res.message,
           cabBooked: res.cabBooked,
+          price: res.price,
+          cabType: bookForm.cabType,
         });
 
         console.log(bookingData);
@@ -64,7 +70,7 @@ const BookingForm = () => {
 
   return (
     <>
-      <section className="flex justify-center items-center h-[600px]">
+      <section className="flex justify-center items-center h-[600px] mb-4">
         {/* Booking Form Div */}
         <div className="w-full md:w-1/2">
           <form className="max-w-md mx-auto" onSubmit={handleSubmit}>

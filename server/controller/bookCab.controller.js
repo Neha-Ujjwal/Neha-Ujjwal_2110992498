@@ -2,6 +2,7 @@ const User = require("../models/User.model");
 const CabStatus = require("../models/CabStatus.model");
 const getShortestRoute = require("../controller/shortestPath.controller");
 const timeHandler = require("../Algorithms/timeHandler.js");
+const Cab = require("../models/Cab.model");
 
 const bookCab = async (req, res) => {
   try {
@@ -17,12 +18,13 @@ const bookCab = async (req, res) => {
         minTimeTaken: "",
         dropOffTime: "",
         message: "Source and Destination cant be same",
-        cabBooked:false
+        cabBooked: false,
       });
     }
 
     const minTime = await getShortestRoute(source, destination);
     const endTime = await timeHandler(startTime, minTime);
+    const cab = await Cab.findOne({ name: cabType });
 
     const isCabOverlapping = await CabStatus.find({
       type: cabType,
@@ -35,25 +37,27 @@ const bookCab = async (req, res) => {
         minTimeTaken: "",
         dropOffTime: "",
         message: "This cab is not available in this time slot",
-        cabBooked:false
+        cabBooked: false,
+        price: "",
       });
     }
 
-    console.log("endTime", endTime);
+    // console.log("cab", cab);
 
-    await User.create({
-      email,
-      source,
-      destination,
-      startTime,
-      cabType,
-    });
+    // await User.create({
+    //   email,
+    //   source,
+    //   destination,
+    //   startTime,
+    //   cabType,
+    // });
 
     return res.status(200).json({
       minTimeTaken: minTime,
       dropOffTime: endTime,
       message: "Cab booked successfully",
-      cabBooked:true
+      cabBooked: true,
+      price: cab.price * minTime,
     });
   } catch (error) {
     console.log("error in controller ", error);
