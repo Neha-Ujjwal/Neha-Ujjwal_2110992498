@@ -2,11 +2,13 @@ require("dotenv").config();
 const express = require("express");
 const app = express();
 var bodyParser = require("body-parser");
+const cors = require("cors");
 const ShortestPathRouter = require("./routes/shortestRoute.js");
 const EditCabRouter = require("./routes/editCabRoute.js");
 const bookCabRouter = require("./routes/bookCabRouter.js");
 const connectToDB = require("./database/db.js");
 
+app.use(cors());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.json());
 app.use("/get-shortest-route", ShortestPathRouter);

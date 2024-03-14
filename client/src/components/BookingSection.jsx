@@ -8,6 +8,11 @@ const BookingForm = () => {
     pickupTime: "",
     cabType: "",
   });
+  const [bookingData, SetBookingData] = useState({
+    timeTaken: "",
+    dropoffTime: "",
+    message: "",
+  });
 
   const updateBookForm = (e) => {
     const { name, value } = e.target;
@@ -18,9 +23,33 @@ const BookingForm = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(bookForm);
+
+    try {
+      const response = await fetch("http://localhost:3000/book", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(bookForm),
+      });
+
+      if (!response.ok) {
+        console.log("error in booking the cab");
+      }
+
+      const res = await response.json();
+      SetBookingData({
+        timeTaken: res.minTimeTaken,
+        dropoffTime: res.dropOffTime,
+        message: res.msg,
+      });
+      // console.log(res);
+      console.log(bookingData);
+    } catch (error) {
+      console.log("error in booking the cab", error);
+    }
   };
 
   return (
@@ -150,7 +179,11 @@ const BookingForm = () => {
         </div>
 
         {/* Cab Types Div */}
-        <div className="hidden md:block w-full md:w-1/2"></div>
+        <div className="hidden md:block w-full md:w-1/2">
+          <p>
+            <p>Drop off Time:{bookingData.dropoffTime}</p>
+          </p>
+        </div>
       </section>
     </>
   );

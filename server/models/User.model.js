@@ -15,7 +15,7 @@ const userSchema = new mongoose.Schema({
     required: true,
   },
   startTime: {
-    type: Date,
+    type: String,
     required: true,
   },
   cabType: {
