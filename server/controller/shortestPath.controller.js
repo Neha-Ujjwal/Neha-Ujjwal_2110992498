@@ -1,4 +1,4 @@
-const shortestPathAlgo = require("../Algorithms/Graph/dijkstraAlgo.js");
+const shortestPathAlgo = require("../Algorithms/Graph/dijkstraAlgo");
 const Cab = require("../models/Cab.model.js");
 
 // const source = parseInt(process.argv[2]);

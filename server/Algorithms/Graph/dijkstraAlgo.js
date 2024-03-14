@@ -1,4 +1,4 @@
-const arr = require("./AdjacenyMatrix.js");
+const arr = require("./AdjacenyMatrix");
 function shortestPathDijkstra(s, d) {
   const count = arr.length;
   const vis = new Array(count).fill(false);

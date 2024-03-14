@@ -6,6 +6,7 @@ const cors = require("cors");
 const ShortestPathRouter = require("./routes/shortestRoute.js");
 const EditCabRouter = require("./routes/editCabRoute.js");
 const bookCabRouter = require("./routes/bookCabRouter.js");
+const allCabDataRouter = require("./routes/AllCabsRoute.js");
 const connectToDB = require("./database/db.js");
 
 app.use(cors());
@@ -14,6 +15,7 @@ app.use(express.json());
 app.use("/get-shortest-route", ShortestPathRouter);
 app.use("/edit", EditCabRouter);
 app.use("/book", bookCabRouter);
+app.use("/cabsData", allCabDataRouter);
 
 const PORT = process.env.PORT;
 
