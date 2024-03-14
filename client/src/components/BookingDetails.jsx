@@ -1,14 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import successImage from "../assets/images/success.png";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 const BookingDetails = ({ bookingData }) => {
   // Render booking details if cab is booked
-  if(bookingData.cabBooked===""){
+  
+
+  if (bookingData.cabBooked === "") {
     return null;
-  }
-  else if (bookingData.cabBooked) {
+  } else if (bookingData.cabBooked) {
     return (
       <>
         <p
@@ -58,9 +59,7 @@ const BookingDetails = ({ bookingData }) => {
     // Render alternative content if cab is not booked
     // Show toast message
     toast.error("Cab is not available");
-    return (
-      <ToastContainer />
-    );
+    return <ToastContainer />;
   }
 };
 

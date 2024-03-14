@@ -27,12 +27,15 @@ const bookCab = async (req, res) => {
     const cab = await Cab.findOne({ name: cabType });
 
     const isCabOverlapping = await CabStatus.find({
-      type: cabType,
+      name: cabType,
       startTime: { $lt: endTime },
       endTime: { $gt: startTime },
     });
 
+    console.log(isCabOverlapping);
+    console.log();
     if (isCabOverlapping.length > 0) {
+      console.log("cab found");
       return res.status(400).json({
         minTimeTaken: "",
         dropOffTime: "",
@@ -42,8 +45,6 @@ const bookCab = async (req, res) => {
       });
     }
 
-    // console.log("cab", cab);
-
     // await User.create({
     //   email,
     //   source,
@@ -51,6 +52,14 @@ const bookCab = async (req, res) => {
     //   startTime,
     //   cabType,
     // });
+
+    await CabStatus.create({
+      id: cab.id,
+      name: cab.name,
+      startTime: startTime,
+      endTime: endTime,
+      status: true,
+    });
 
     return res.status(200).json({
       minTimeTaken: minTime,

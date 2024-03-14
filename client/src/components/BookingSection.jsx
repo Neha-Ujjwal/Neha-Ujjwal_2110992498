@@ -199,11 +199,12 @@ const BookingForm = () => {
           <img src={homeImage} />
         </div>
       </section>
-
       {/* Booking Details Section */}
-      <section>
-        <BookingDetails bookingData={bookingData} />
-      </section>
+     
+        <section>
+          <BookingDetails bookingData={bookingData} />
+        </section>
+    
     </>
   );
 };
