@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import homeImage from "../assets/images/main4.jpg";
+import BookingDetails from "./BookingDetails";
 
 const BookingForm = () => {
   const [bookForm, setBookForm] = useState({
@@ -12,6 +14,7 @@ const BookingForm = () => {
     timeTaken: "",
     dropoffTime: "",
     message: "",
+    cabBooked: "",
   });
 
   const updateBookForm = (e) => {
@@ -34,19 +37,26 @@ const BookingForm = () => {
         },
         body: JSON.stringify(bookForm),
       });
+      const res = await response.json();
 
       if (!response.ok) {
-        console.log("error in booking the cab");
-      }
+        await SetBookingData({
+          timeTaken: res.minTimeTaken,
+          dropoffTime: res.dropOffTime,
+          message: res.message,
+          cabBooked: res.cabBooked,
+        });
+        console.log(bookingData);
+      } else {
+        await SetBookingData({
+          timeTaken: res.minTimeTaken,
+          dropoffTime: res.dropOffTime,
+          message: res.message,
+          cabBooked: res.cabBooked,
+        });
 
-      const res = await response.json();
-      SetBookingData({
-        timeTaken: res.minTimeTaken,
-        dropoffTime: res.dropOffTime,
-        message: res.msg,
-      });
-      // console.log(res);
-      console.log(bookingData);
+        console.log(bookingData);
+      }
     } catch (error) {
       console.log("error in booking the cab", error);
     }
@@ -180,10 +190,13 @@ const BookingForm = () => {
 
         {/* Cab Types Div */}
         <div className="hidden md:block w-full md:w-1/2">
-          <p>
-            <p>Drop off Time:{bookingData.dropoffTime}</p>
-          </p>
+          <img src={homeImage} />
         </div>
+      </section>
+
+      {/* Booking Details Section */}
+      <section>
+        <BookingDetails bookingData={bookingData} />
       </section>
     </>
   );

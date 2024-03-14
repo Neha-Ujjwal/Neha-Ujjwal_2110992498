@@ -3,6 +3,8 @@ import Logo from "../assets/images/logo.jpg";
 import bookNow from "../assets/images/bookNow.png";
 import cabInfo from "../assets/images/cab_info.png";
 
+
+
 const Navbar = () => {
   return (
     <header className=" bg-white shadow-md flex items-center justify-between px-8 py-2 ">

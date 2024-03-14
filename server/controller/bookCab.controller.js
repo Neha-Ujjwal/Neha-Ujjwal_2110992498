@@ -12,8 +12,13 @@ const bookCab = async (req, res) => {
     const startTime = req.body.pickupTime;
     const cabType = req.body.cabType;
 
-    if (source == destination) {
-      res.status(400).json({ message: "Source and Destination cant be same" });
+    if (source === destination) {
+      return res.status(400).json({
+        minTimeTaken: "",
+        dropOffTime: "",
+        message: "Source and Destination cant be same",
+        cabBooked:false
+      });
     }
 
     const minTime = await getShortestRoute(source, destination);
@@ -26,29 +31,32 @@ const bookCab = async (req, res) => {
     });
 
     if (isCabOverlapping.length > 0) {
-      return res
-        .status(400)
-        .json({ msg: "This cab is not available in this time slot" });
+      return res.status(400).json({
+        minTimeTaken: "",
+        dropOffTime: "",
+        message: "This cab is not available in this time slot",
+        cabBooked:false
+      });
     }
 
     console.log("endTime", endTime);
 
-    // await User.create({
-    //   email,
-    //   source,
-    //   destination,
-    //   startTime,
-    //   cabType,
-    // });
+    await User.create({
+      email,
+      source,
+      destination,
+      startTime,
+      cabType,
+    });
 
     return res.status(200).json({
       minTimeTaken: minTime,
       dropOffTime: endTime,
-      msg: "Cab booked successfully",
+      message: "Cab booked successfully",
+      cabBooked:true
     });
   } catch (error) {
     console.log("error in controller ", error);
   }
 };
-
 module.exports = bookCab;
