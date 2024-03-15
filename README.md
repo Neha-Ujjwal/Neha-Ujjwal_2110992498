@@ -64,9 +64,28 @@ cd ../server
 npm run dev
 ```
 
-- John Doe (@johndoe)
-- Jane Smith (@janesmith)
+### 4.Snapshot of the Project
 
-## License
+## Home Page
+![image](https://github.com/Neha-Ujjwal/Neha-Ujjwal_2110992498/assets/104856137/fbcd8113-3239-4e24-9b53-d77762b4d838)
+
+## Cab Section
+
+![image](https://github.com/Neha-Ujjwal/Neha-Ujjwal_2110992498/assets/104856137/06ba1cef-3096-4dfd-9435-172e0deb2baa)
+
+## Booked Successfully
+
+![image](https://github.com/Neha-Ujjwal/Neha-Ujjwal_2110992498/assets/104856137/e739efcf-05e4-441b-b4be-c377905d8802)
+
+
+## Mobile View
+
+![image](https://github.com/Neha-Ujjwal/Neha-Ujjwal_2110992498/assets/104856137/d6659bd9-9e79-4224-9919-8b17dbd6535f)
+
+
+
+
+
+
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
