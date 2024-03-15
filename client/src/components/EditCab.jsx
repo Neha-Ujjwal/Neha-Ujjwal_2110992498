@@ -85,7 +85,7 @@ const EditCab = () => {
   };
 
   return (
-    <div className="container bg-gray-100 mx-auto px-4 py-8">
+    <div className="container bg-gray-100 mx-auto px-4 py-8" id="editCab">
       <div className="bg-yellow-400 p-3 mb-8">
         <h2 className="text-5xl text-center font-bold text-white">Cab List</h2>
       </div>

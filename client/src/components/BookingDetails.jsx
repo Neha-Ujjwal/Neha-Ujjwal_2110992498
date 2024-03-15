@@ -51,7 +51,7 @@ const BookingDetails = ({ bookingData }) => {
               </p>
               <p className="text-lg">
                 <span className="font-semibold text-xl">Minimum Time : </span>{" "}
-                {bookingData.timeTaken}
+                {bookingData.timeTaken} minutes
               </p>
               <p className="text-lg">
                 <span className="font-semibold text-xl">Cab : </span>{" "}

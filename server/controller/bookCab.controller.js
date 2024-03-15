@@ -2,9 +2,16 @@ const User = require("../models/User.model");
 const CabStatus = require("../models/CabStatus.model");
 const getShortestRoute = require("../controller/shortestPath.controller");
 const timeHandler = require("../Algorithms/timeHandler.js");
-const Cab = require("../models/Cab.model");
+const Cab = require("../models/Cab.model.js");
 
 const bookCab = async (req, res) => {
+  // const cityMapping = {
+  //   Mumbai: "0",
+  //   Delhi: "1",
+  //   Kolkata: "2",
+  //   Chennai: "3",
+  //   Bengalore: "4",
+  // };
   try {
     const email = req.body.email;
     const source = req.body.pickupLocation;
@@ -22,7 +29,6 @@ const bookCab = async (req, res) => {
       });
     }
 
-   
     const minTime = await getShortestRoute(source, destination);
     const endTime = await timeHandler(startTime, minTime);
     const cab = await Cab.findOne({ name: cabType });
@@ -44,17 +50,17 @@ const bookCab = async (req, res) => {
       });
     }
 
-    // await User.create({
-    //   email,
-    //   source,
-    //   destination,
-    //   startTime,
-    //   cabType,
-    // });
+    await User.create({
+      email,
+      source,
+      destination,
+      startTime,
+      cabType,
+    });
 
     await CabStatus.create({
       id: cab.id,
-      name: cab.name,
+      name: cabType,
       startTime: startTime,
       endTime: endTime,
       status: true,
