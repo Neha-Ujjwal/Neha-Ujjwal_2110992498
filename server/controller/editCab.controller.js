@@ -5,13 +5,9 @@ const editCabFeature = async (req, res) => {
     const cab_id = req.body._id;
     const updatedCabData = req.body.cabData;
 
-    const updatedCab = await await Cab.findByIdAndUpdate(
-      cab_id,
-      updatedCabData,
-      {
-        new: true,
-      }
-    );
+    const updatedCab = await Cab.findByIdAndUpdate(cab_id, updatedCabData, {
+      new: true,
+    });
 
     if (!updatedCab) {
       return res.status(400).json({ msg: "No Cab found with given id" });

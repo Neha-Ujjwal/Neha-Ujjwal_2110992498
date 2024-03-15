@@ -18,7 +18,6 @@ app.use("/edit", EditCabRouter);
 app.use("/book", bookCabRouter);
 app.use("/cabsData", allCabDataRouter);
 
-
 const PORT = process.env.PORT;
 
 connectToDB()

@@ -13,7 +13,9 @@ const EditCab = () => {
   useEffect(() => {
     const fetchCabs = async () => {
       try {
-        const response = await fetch("http://localhost:3000/cabsData");
+        const response = await fetch(
+          "https://neha-ujjwal-2110992498-1.onrender.com/cabsData"
+        );
         if (!response.ok) {
           throw new Error("Failed to fetch cab data");
         }
@@ -50,13 +52,16 @@ const EditCab = () => {
       },
     };
     try {
-      const response = await fetch("http://localhost:3000/edit", {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(updatedCabData),
-      });
+      const response = await fetch(
+        "https://neha-ujjwal-2110992498-1.onrender.com/edit",
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(updatedCabData),
+        }
+      );
 
       toast.success("Updated Successfully");
     } catch (error) {

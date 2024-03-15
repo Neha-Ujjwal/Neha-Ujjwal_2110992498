@@ -34,13 +34,16 @@ const BookingSection = () => {
     e.preventDefault();
 
     try {
-      const response = await fetch("http://localhost:3000/book", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(bookForm),
-      });
+      const response = await fetch(
+        "https://neha-ujjwal-2110992498-1.onrender.com/book",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(bookForm),
+        }
+      );
       const res = await response.json();
 
       if (!response.ok) {
