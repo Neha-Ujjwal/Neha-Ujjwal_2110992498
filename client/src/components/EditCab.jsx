@@ -10,6 +10,7 @@ const EditCab = () => {
   const [editedPrice, setEditedPrice] = useState("");
   const [editedImage, setEditedImage] = useState("");
 
+
   useEffect(() => {
     const fetchCabs = async () => {
       try {
@@ -34,6 +35,7 @@ const EditCab = () => {
     setSelectedCab(cab);
     setEditedName(cab.name);
     setEditedPrice(cab.price);
+    setEditedImage(cab.image)
     setIsModalOpen(true);
   };
 
