@@ -2,11 +2,13 @@
 
 Welcome to my Cab Booking App project! This application is built using the MERN stack (MongoDB, Express.js, React.js, Node.js). It provides users with a seamless experience to book cabs with various options and price ranges, ensuring quick and efficient travel to their destinations.
 
-## Features
-
+## 🚀Features
 - **Dijkstra's Algorithm Implementation**: The project incorporates Dijkstra's algorithm to find the shortest path between locations, ensuring efficient routing for users.
 - **Interactive UI**: The user interface is designed to be interactive, intuitive, and completely responsive across devices, enhancing user experience.
 - **Real-time Updates**: Upon booking, users receive real-time updates via React-toastify, making their interaction with the app more engaging and informative.
+- **Admin Features**: Administrators have the capability to edit cab details such as cab name, cab image, and price, providing flexibility in managing the available options.
+- **Prevention of Overlapping Cabs**: Proper validation mechanisms are implemented to prevent the issue of overlapping cabs, ensuring a smoother booking experience for users.
+
 
 ## Database
 
