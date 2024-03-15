@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import successImage from "../assets/images/success.png";
+import { toast } from "react-toastify";
 
 const EditCab = () => {
   const [cabData, setCabData] = useState([]);
@@ -11,8 +12,13 @@ const EditCab = () => {
   useEffect(() => {
     const fetchCabs = async () => {
       try {
-        const response = await axios.get("http://localhost:3000/cabsData");
-        setCabData(response.data);
+        const response = await fetch("http://localhost:3000/cabsData");
+        if (!response.ok) {
+          throw new Error("Failed to fetch cab data");
+        }
+        const res = await response.json();
+        console.log(res);
+        setCabData(res);
       } catch (error) {
         console.error("Error fetching cab data:", error);
       }
@@ -32,6 +38,32 @@ const EditCab = () => {
     setIsModalOpen(false);
   };
 
+  const SaveChangesInDB = async (cab) => {
+    const updatedCabData = {
+      _id: cab._id,
+      cabData: {
+        id: cab.id,
+        price: cab.price,
+        image: cab.image,
+        name: cab.name,
+      },
+    };
+    try {
+      const response = await fetch("http://localhost:3000/edit", {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updatedCabData),
+      });
+
+      toast.success("Updated Successfully");
+    } catch (error) {
+      toast.error("Can't update Cab details. Please try again later!!");
+      console.log("error in updating the cab details");
+    }
+  };
+
   const handleSaveChanges = () => {
     // Here you can implement the logic to save the changes made in the modal
     // For demonstration, let's just update the selected cab's data in the state
@@ -40,6 +72,14 @@ const EditCab = () => {
         ? { ...cab, name: editedName, price: editedPrice }
         : cab
     );
+
+    cabData.map(async (cab) => {
+      if (cab.id == selectedCab.id) {
+        await SaveChangesInDB({ ...cab, name: editedName, price: editedPrice });
+        // console.log({ ...cab, name: editedName, price: editedPrice });
+      }
+    });
+
     setCabData(updatedCabData);
     closeModal();
   };
@@ -62,7 +102,7 @@ const EditCab = () => {
             />
             <div className="p-4 flex flex-col justify-center items-center">
               <h3 className="text-xl font-bold text-gray-800 text-center">
-                Cab{cab.name}
+                {cab.name}
               </h3>
               <p className="text-lg text-gray-600">Price: {cab.price} Rs/min</p>
               <button

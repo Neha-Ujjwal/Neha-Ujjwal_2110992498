@@ -14,13 +14,13 @@ const editCabFeature = async (req, res) => {
     );
 
     if (!updatedCab) {
-      res.status(400).json({ msg: "No Cab found with given id" });
+      return res.status(400).json({ msg: "No Cab found with given id" });
     }
 
-    res.status(201).json(updatedCab);
+    return res.status(201).json(updatedCab);
   } catch (error) {
     console.log(error);
-    res.status(400).json({ msg: "Errror in updating Cab Information" });
+    return res.status(400).json({ msg: "Errror in updating Cab Information" });
   }
 };
 

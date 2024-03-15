@@ -22,6 +22,7 @@ const bookCab = async (req, res) => {
       });
     }
 
+   
     const minTime = await getShortestRoute(source, destination);
     const endTime = await timeHandler(startTime, minTime);
     const cab = await Cab.findOne({ name: cabType });
@@ -32,8 +33,6 @@ const bookCab = async (req, res) => {
       endTime: { $gt: startTime },
     });
 
-    console.log(isCabOverlapping);
-    console.log();
     if (isCabOverlapping.length > 0) {
       console.log("cab found");
       return res.status(400).json({
