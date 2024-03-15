@@ -8,6 +8,7 @@ const EditCab = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editedName, setEditedName] = useState("");
   const [editedPrice, setEditedPrice] = useState("");
+  const [editedImage, setEditedImage] = useState("");
 
   useEffect(() => {
     const fetchCabs = async () => {
@@ -69,13 +70,18 @@ const EditCab = () => {
     // For demonstration, let's just update the selected cab's data in the state
     const updatedCabData = cabData.map((cab) =>
       cab.id === selectedCab.id
-        ? { ...cab, name: editedName, price: editedPrice }
+        ? { ...cab, name: editedName, price: editedPrice, image: editedImage }
         : cab
     );
 
     cabData.map(async (cab) => {
       if (cab.id == selectedCab.id) {
-        await SaveChangesInDB({ ...cab, name: editedName, price: editedPrice });
+        await SaveChangesInDB({
+          ...cab,
+          name: editedName,
+          price: editedPrice,
+          image: editedImage,
+        });
         // console.log({ ...cab, name: editedName, price: editedPrice });
       }
     });
@@ -149,6 +155,22 @@ const EditCab = () => {
                   className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-yellow-500"
                   value={editedPrice}
                   onChange={(e) => setEditedPrice(e.target.value)}
+                />
+              </div>
+
+              <div className="mb-4">
+                <label
+                  htmlFor="price"
+                  className="block text-gray-700 font-bold mb-2"
+                >
+                  Image url:
+                </label>
+                <input
+                  type="text"
+                  id="image"
+                  className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-yellow-500"
+                  value={editedImage}
+                  onChange={(e) => setEditedImage(e.target.value)}
                 />
               </div>
               <div className="flex justify-end">
